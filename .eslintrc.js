@@ -25,7 +25,7 @@ module.exports = {
   },
 
   rules: {
-    'no-console': 0,
+    'no-console': 'warn',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-unused-vars': 2,
     'prefer-const': [
