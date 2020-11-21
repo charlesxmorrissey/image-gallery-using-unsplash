@@ -12,24 +12,6 @@ export default class Gallery {
     this._perPage = 10
     this._imageData = []
     this._total = 50
-
-    console.log('this._elem', this._elem)
-  }
-
-  _render() {
-    const galleryElem = document.querySelector('.gallery')
-
-    galleryElem.innerHTML = ''
-
-    this._imageData.map((image, index) => {
-      const imgCard = `
-        <div class="gallery-card" data-id="${image.id}">
-          <img class="gallery-card__image" src="${image.urls.thumb}" alt="" />
-        </div>
-      `
-
-      return (galleryElem.innerHTML += imgCard)
-    })
   }
 
   _fetchImages(page = this._currentPage) {
@@ -54,6 +36,22 @@ export default class Gallery {
       .catch((error) => {
         console.error('Error:', error)
       })
+  }
+
+  _render() {
+    const galleryElem = document.querySelector('.gallery')
+
+    galleryElem.innerHTML = ''
+
+    this._imageData.map((image, index) => {
+      const imgCard = `
+        <div class="gallery-card" data-id="${image.id}">
+          <img class="gallery-card__image" src="${image.urls.thumb}" alt="" />
+        </div>
+      `
+
+      return (galleryElem.innerHTML += imgCard)
+    })
   }
 
   init() {

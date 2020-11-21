@@ -6,7 +6,7 @@ export default class Pagination {
     this._onPageChange = onPageChange
     this._numPages = Math.ceil(this._totalPages / this._perPage)
 
-    this._buildPages()
+    this._render()
   }
 
   _bindEvents() {
@@ -15,12 +15,12 @@ export default class Pagination {
         this._currentPage = e.target.innerText
 
         this._onPageChange(this._currentPage)
-        this._setSelected()
+        this._setSelectedPage()
       }
     })
   }
 
-  _buildPages() {
+  _render() {
     const paginationElem = document.querySelector('.pagination')
     const paginationNavElem = document.createElement('nav')
 
@@ -34,10 +34,10 @@ export default class Pagination {
     }
 
     this._bindEvents()
-    this._setSelected()
+    this._setSelectedPage()
   }
 
-  _setSelected() {
+  _setSelectedPage() {
     const pageBtns = document.querySelectorAll('.pagination-nav__btn')
     const activeClass = 'pagination-nav__btn--active'
 
