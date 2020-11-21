@@ -1,0 +1,18 @@
+$bg-color: red;
+
+body {
+  background: $bg-color;
+}
+
+.gallery {
+  display: flex;
+}
+
+.gallery-card {
+  margin: 0 10px;
+  width: 100px;
+}
+
+.gallery-card__image {
+  width: 100%;
+}
