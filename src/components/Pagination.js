@@ -1,12 +1,14 @@
 export default class Pagination {
   constructor({ currentPage, totalPages, perPage, onPageChange }) {
     this._currentPage = currentPage
-    this._totalPages = totalPages
+    this._totalPages = totalPages > 50 ? 50 : totalPages
     this._perPage = perPage
     this._onPageChange = onPageChange
     this._numPages = Math.ceil(this._totalPages / this._perPage)
 
-    this._render()
+    if (this._numPages > 1) {
+      this._render()
+    }
   }
 
   _bindEvents() {

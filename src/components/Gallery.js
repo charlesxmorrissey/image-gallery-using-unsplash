@@ -13,7 +13,7 @@ export default class Gallery {
     this._currentPage = 1
     this._perPage = 10
     this._imageData = []
-    this._total = 50
+    this._initLoad = true
   }
 
   _fetchImages(page = this._currentPage) {
@@ -31,6 +31,7 @@ export default class Gallery {
       .then((response) => response.json())
       .then((json) => {
         this._imageData = json.results
+        this._total = json.total
 
         this._render()
       })
@@ -82,18 +83,21 @@ export default class Gallery {
     })
 
     galleryElem.appendChild(cardFragment)
+
+    if (this._initLoad) {
+      this._initLoad = false
+      this._modal = new Modal()
+      this.pagination = new Pagination({
+        currentPage: this._currentPage,
+        totalPages: this._total,
+        perPage: this._perPage,
+        onPageChange: this._fetchImages.bind(this),
+      })
+      this._bindEvents()
+    }
   }
 
   init() {
     this._fetchImages()
-    this._modal = new Modal()
-    this.pagination = new Pagination({
-      currentPage: this._currentPage,
-      totalPages: this._total,
-      perPage: this._perPage,
-      onPageChange: this._fetchImages.bind(this),
-    })
-
-    this._bindEvents()
   }
 }

@@ -8,7 +8,23 @@
 }
 
 .pagination-nav__btn {
+  background: none;
+  border: 1px solid $color-black;
+  border-radius: 4px;
   cursor: pointer;
-  margin-left: 4px;
-  padding: 10px;
+  margin-left: 6px;
+  outline: 0;
+  padding: 12px;
+
+  &:focus,
+  &:hover {
+    opacity: 0.5;
+  }
+
+  &:disabled {
+    background: $color-black;
+    color: $color-white;
+    cursor: default;
+    opacity: 1;
+  }
 }

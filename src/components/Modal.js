@@ -30,6 +30,15 @@ export default class Modal {
         this.close()
       }
     })
+
+    document.addEventListener('keydown', (e) => {
+      if (
+        e.keyCode === 27 &&
+        this._overlay.classList.contains(this._cssClasses.overlayOpen)
+      ) {
+        this.close()
+      }
+    })
   }
 
   _render() {

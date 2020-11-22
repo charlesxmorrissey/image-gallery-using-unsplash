@@ -4,7 +4,7 @@ import 'styles/index.scss'
 
 const gallery = new Gallery({
   elem: '#app',
-  keyword: 'pizza',
+  keyword: 'cats',
 })
 
 gallery.init()
