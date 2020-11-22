@@ -23,15 +23,21 @@ export default class Pagination {
   _render() {
     const paginationElem = document.querySelector('.pagination')
     const paginationNavElem = document.createElement('nav')
+    const pageBtnFragment = document.createDocumentFragment()
 
     paginationElem.append(paginationNavElem)
-    paginationNavElem.classList.add('pagination-nav')
+    paginationNavElem.className = 'pagination-nav'
 
     for (let i = 1; i < this._numPages + 1; i++) {
-      const pageBtn = `<button class="pagination-nav__btn">${i}</button>`
+      const pageBtn = document.createElement('button')
 
-      paginationNavElem.innerHTML += pageBtn
+      pageBtn.className = 'pagination-nav__btn'
+      pageBtn.textContent = i
+
+      pageBtnFragment.appendChild(pageBtn)
     }
+
+    paginationNavElem.appendChild(pageBtnFragment)
 
     this._bindEvents()
     this._setSelectedPage()
