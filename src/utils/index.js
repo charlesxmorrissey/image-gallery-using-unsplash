@@ -1,5 +1,5 @@
 /**
- * Wraps window.fetch to accept query params as options.
+ * Wrapper for fetch to accept query params as options.
  * @param {string} url
  * @param {Object} options
  * @return {Function}

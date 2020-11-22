@@ -5,10 +5,14 @@ import Pagination from './Pagination'
 
 const { ACCESS_KEY: accessKey } = process.env
 
+/** Class that creates a image gallery based on keyword. */
 export default class Gallery {
-  constructor({ elem, keyword }) {
+  /**
+   * @param {string} keyword
+   * @constructor
+   */
+  constructor({ keyword }) {
     this._apiUrl = 'https://api.unsplash.com/search/photos'
-    this._elem = document.querySelector(elem)
     this._keyword = keyword
     this._currentPage = 1
     this._perPage = 10
@@ -16,6 +20,11 @@ export default class Gallery {
     this._initLoad = true
   }
 
+  /**
+   * Fetches image data from the api.
+   * @param {number} page
+   * @private
+   */
   _fetchImages(page = this._currentPage) {
     request(this._apiUrl, {
       headers: {
@@ -41,6 +50,10 @@ export default class Gallery {
       })
   }
 
+  /**
+   * Adds a click event to each image to trigger a modal detail view.
+   * @private
+   */
   _bindEvents() {
     document.addEventListener('click', (e) => {
       if (e.target.classList.contains('gallery-card')) {
@@ -51,10 +64,20 @@ export default class Gallery {
     })
   }
 
+  /**
+   * Filters the selected image to display in the modal.
+   * @param {string} id
+   * @return {Object}
+   * @private
+   */
   _getSelectedImage(id) {
     return this._imageData.filter((obj) => obj.id === id)
   }
 
+  /**
+   * Renders the gallery view.
+   * @private
+   */
   _render() {
     const galleryElem = document.querySelector('.gallery')
     const cardFragment = document.createDocumentFragment()
@@ -84,6 +107,7 @@ export default class Gallery {
 
     galleryElem.appendChild(cardFragment)
 
+    // Initializes the pagingation and modal component instances, adds
     if (this._initLoad) {
       this._initLoad = false
       this._modal = new Modal()
@@ -97,6 +121,9 @@ export default class Gallery {
     }
   }
 
+  /**
+   * Initializes the gallery instance.
+   */
   init() {
     this._fetchImages()
   }
