@@ -1,0 +1,61 @@
+.overlay {
+  background: rgba(62, 68, 73, 0.93);
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  visibility: hidden;
+}
+
+.overlay--is-open {
+  visibility: visible;
+}
+
+.modal {
+  height: 80vh;
+  left: 50%;
+  max-width: 50vw;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  visibility: hidden;
+  width: 1080px;
+  z-index: 1;
+}
+
+.modal--is-open {
+  visibility: visible;
+}
+
+.modal__content-image {
+  width: 100%;
+}
+
+.modal__close-btn {
+  align-items: center;
+  background: #000;
+  border-radius: 40px;
+  border: 0;
+  cursor: pointer;
+  display: flex;
+  height: 40px;
+  justify-content: center;
+  outline: none;
+  position: absolute;
+  right: -16px;
+  top: -16px;
+  width: 40px;
+
+  svg {
+    fill: #fff;
+    height: 24px;
+    pointer-events: none;
+    width: 24px;
+  }
+
+  &:focus,
+  &:hover {
+    background: rgb(180, 199, 181);
+  }
+}

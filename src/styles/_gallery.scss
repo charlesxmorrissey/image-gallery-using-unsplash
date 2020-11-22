@@ -1,0 +1,14 @@
+.gallery {
+  display: flex;
+}
+
+.gallery-card {
+  cursor: pointer;
+  margin: 0 10px;
+  width: 100px;
+}
+
+.gallery-card__image {
+  pointer-events: none;
+  width: 100%;
+}
