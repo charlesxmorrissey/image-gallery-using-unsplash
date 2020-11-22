@@ -107,7 +107,7 @@ export default class Gallery {
 
     galleryElem.appendChild(cardFragment)
 
-    // Initializes the pagingation and modal component instances.
+    // Initializes the pagination and modal component instances.
     // Adds event listeners to images,
     if (this._initLoad) {
       this._initLoad = false
