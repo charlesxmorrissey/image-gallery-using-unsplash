@@ -13,42 +13,64 @@
 }
 
 .modal {
-  height: 80vh;
   left: 50%;
-  max-width: 50vw;
+  max-width: 90vw;
   position: absolute;
-  top: 50%;
-  transform: translate(-50%, -50%);
+  top: 10%;
+  transform: translate(-50%, -10%);
   visibility: hidden;
-  width: 1080px;
-  z-index: 1;
+  width: 1140px;
+
+  @media (min-width: $medium-and-up) {
+    max-width: 80vw;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
 }
 
 .modal--is-open {
   visibility: visible;
 }
 
+.modal__content {
+  position: relative;
+
+  &:before {
+    content: '';
+    display: block;
+    padding-top: (40 / 57) * 100%;
+    width: 100%;
+  }
+}
+
 .modal__content-image {
+  border-radius: 4px;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
   width: 100%;
 }
 
 .modal__close-btn {
   align-items: center;
-  background: #000;
-  border-radius: 40px;
+  background: $color-black;
+  border-radius: 30px;
   border: 0;
   cursor: pointer;
   display: flex;
-  height: 40px;
+  height: 30px;
   justify-content: center;
   outline: none;
   position: absolute;
-  right: -16px;
-  top: -16px;
-  width: 40px;
+  right: -12px;
+  top: -12px;
+  width: 30px;
+  z-index: 1;
 
   svg {
-    fill: #fff;
+    fill: $color-white;
     height: 24px;
     pointer-events: none;
     width: 24px;

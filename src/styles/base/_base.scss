@@ -1,5 +1,12 @@
-$bg-color: red;
-
 body {
-  background: $bg-color;
+  background: $color-light-grey;
+  font: 16px sans-serif;
+}
+
+#app {
+  margin: 0 16px;
+
+  @media (min-width: $medium-and-up) {
+    margin: 0 32px;
+  }
 }

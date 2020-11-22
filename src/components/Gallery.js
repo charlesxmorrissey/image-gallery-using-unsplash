@@ -24,13 +24,12 @@ export default class Gallery {
       queryParams: {
         query: this._keyword,
         per_page: this._perPage,
-        orientation: 'portrait',
+        orientation: 'landscape',
         page,
       },
     })
       .then((response) => response.json())
       .then((json) => {
-        console.log('Success:', json)
         this._imageData = json.results
 
         this._render()
@@ -52,7 +51,7 @@ export default class Gallery {
   }
 
   _getSelectedImage(id) {
-    return this._imageData.filter((a) => a.id === id)
+    return this._imageData.filter((obj) => obj.id === id)
   }
 
   _render() {
@@ -67,12 +66,12 @@ export default class Gallery {
       card.className = 'gallery-card'
       card.dataset.id = id
 
-      loadImage(urls.thumb).then(() => {
+      loadImage(urls.small).then(() => {
         const img = new Image()
 
         img.alt = alt_description || ''
         img.className = 'gallery-card__image'
-        img.src = urls.thumb
+        img.src = urls.small
 
         card.appendChild(img)
       })
