@@ -8,7 +8,7 @@ const { ACCESS_KEY: accessKey } = process.env
 /** Class that creates a image gallery based on keyword. */
 export default class Gallery {
   /**
-   * @param {string} keyword
+   * @param {string} keyword The search term.
    * @constructor
    */
   constructor({ keyword }) {
@@ -51,7 +51,7 @@ export default class Gallery {
   }
 
   /**
-   * Adds a click event to each image to trigger a modal detail view.
+   * Adds a click event to handle the display of a modal detail view.
    * @private
    */
   _bindEvents() {

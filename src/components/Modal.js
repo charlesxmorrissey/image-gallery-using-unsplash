@@ -1,6 +1,10 @@
 import { loadImage } from 'utils'
 
+/** Class that creates a modal overlay to provide a detailed view. */
 export default class Modal {
+  /**
+   * @constructor
+   */
   constructor() {
     this._body = document.body
     this._overlay = document.querySelector('.overlay')
@@ -9,6 +13,11 @@ export default class Modal {
     this._bindEvents()
   }
 
+  /**
+   * Returns the CSS classes used by the modal.
+   * @return {Object} The CSS classes.
+   * @private
+   */
   get _cssClasses() {
     return {
       modal: 'modal',
@@ -19,6 +28,10 @@ export default class Modal {
     }
   }
 
+  /**
+   * Adds event listeners to control the modal.
+   * @private
+   */
   _bindEvents() {
     document.addEventListener('click', (e) => {
       const target = e.target
@@ -41,6 +54,10 @@ export default class Modal {
     })
   }
 
+  /**
+   * Renders the modal view.
+   * @private
+   */
   _render() {
     const modalContent = document.querySelector(
       `.${this._cssClasses.modalContent}`
@@ -59,11 +76,18 @@ export default class Modal {
     })
   }
 
+  /**
+   * Closes the modal and overlay.
+   */
   close() {
     this._modal.classList.remove(this._cssClasses.modalOpen)
     this._overlay.classList.remove(this._cssClasses.overlayOpen)
   }
 
+  /**
+   * Opens the modal and overlay.
+   * @param {Object} data
+   */
   open(data) {
     this._modalData = data
     this._modal.classList.add(this._cssClasses.modalOpen)

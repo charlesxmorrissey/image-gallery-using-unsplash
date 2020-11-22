@@ -1,4 +1,12 @@
+/** Class that handles gallery paging navigation. */
 export default class Pagination {
+  /**
+   * @param {number} currentPage
+   * @param {number} totalPages
+   * @param {number} perPage
+   * @param {Function} onPageChange
+   * @constructor
+   */
   constructor({ currentPage, totalPages, perPage, onPageChange }) {
     this._currentPage = currentPage
     this._totalPages = totalPages > 50 ? 50 : totalPages
@@ -6,11 +14,16 @@ export default class Pagination {
     this._onPageChange = onPageChange
     this._numPages = Math.ceil(this._totalPages / this._perPage)
 
+    // Don't render the page navigation if there aren't enough results.
     if (this._numPages > 1) {
       this._render()
     }
   }
 
+  /**
+   * Add a click event to handle displaying gallery results based on page.
+   * @private
+   */
   _bindEvents() {
     document.addEventListener('click', (e) => {
       if (e.target.classList.contains('pagination-nav__btn')) {
@@ -22,6 +35,10 @@ export default class Pagination {
     })
   }
 
+  /**
+   * Renders the page navigation.
+   * @private
+   */
   _render() {
     const paginationElem = document.querySelector('.pagination')
     const paginationNavElem = document.createElement('nav')
@@ -45,6 +62,10 @@ export default class Pagination {
     this._setSelectedPage()
   }
 
+  /**
+   * Handles the state of the active page.
+   * @private
+   */
   _setSelectedPage() {
     const pageBtns = document.querySelectorAll('.pagination-nav__btn')
     const activeClass = 'pagination-nav__btn--active'
