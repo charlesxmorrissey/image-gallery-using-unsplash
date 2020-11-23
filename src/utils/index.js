@@ -4,7 +4,7 @@
  * @param {Object} options
  * @return {Function}
  */
-export function request(url, options = {}) {
+export const request = (url, options = {}) => {
   if (options.queryParams) {
     url +=
       (url.indexOf('?') === -1 ? '?' : '&') + queryParams(options.queryParams)
