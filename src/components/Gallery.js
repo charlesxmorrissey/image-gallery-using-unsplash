@@ -84,7 +84,7 @@ export default class Gallery {
 
     galleryElem.innerHTML = ''
 
-    this._imageData.map(({ alt_description, id, urls }, index) => {
+    this._imageData.forEach(({ alt_description, id, urls }, index) => {
       const card = document.createElement('div')
 
       card.className = 'gallery-card'
@@ -101,8 +101,6 @@ export default class Gallery {
       })
 
       cardFragment.appendChild(card)
-
-      return this
     })
 
     galleryElem.appendChild(cardFragment)
