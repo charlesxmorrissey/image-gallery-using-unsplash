@@ -18,17 +18,17 @@
 
 .modal {
   left: 50%;
-  max-width: 90vw;
   position: absolute;
   top: 24px;
   transform: translate(-50%, 0);
   visibility: hidden;
-  width: 1140px;
+  width: calc(100% - 48px);
 
   @media (min-width: $medium-and-up) {
     max-width: 80vw;
     top: 50%;
     transform: translate(-50%, -50%);
+    width: 1140px;
   }
 }
 

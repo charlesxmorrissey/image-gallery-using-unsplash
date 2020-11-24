@@ -57,9 +57,19 @@ export default class Gallery {
   _bindEvents() {
     document.addEventListener('click', (e) => {
       if (e.target.classList.contains('gallery-card')) {
-        const imageData = this._getSelectedImage(e.target.dataset.id)
+        const modalImg = this._getSelectedImage(e.target.dataset.id)[0]
+        const { alt_description, urls } = modalImg
 
-        this._modal.open(...imageData)
+        loadImage(urls.regular).then(() => {
+          const imgTemplate = `
+            <img
+              class="modal__content-image"
+              src="${urls.regular}"
+              alt="${alt_description || ''}" />
+          `
+
+          this._modal.open(imgTemplate)
+        })
       }
     })
   }
