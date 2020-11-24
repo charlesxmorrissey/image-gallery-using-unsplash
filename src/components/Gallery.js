@@ -62,7 +62,7 @@ export default class Gallery {
         loadImage(modalImg.urls.small).then(() => {
           const imgTemplate = `
             <img
-              class="gallery-card__image"
+              class="modal__content-image"
               src="${modalImg.urls.small}"
               alt="${modalImg.alt_description || ''}" />
           `
