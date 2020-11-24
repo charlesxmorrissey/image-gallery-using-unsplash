@@ -1,5 +1,3 @@
-import { loadImage } from 'utils'
-
 /** Class that creates a modal overlay to provide a detailed view. */
 export default class Modal {
   /**
@@ -21,6 +19,7 @@ export default class Modal {
   get _cssClasses() {
     return {
       modal: 'modal',
+      modalCloseBtn: 'modal__close-btn',
       modalContent: 'modal__content',
       modalOpen: 'modal--is-open',
       overlay: 'overlay',
@@ -38,7 +37,7 @@ export default class Modal {
 
       if (
         target.classList.contains(this._cssClasses.overlayOpen) ||
-        target.classList.contains('modal__close-btn')
+        target.classList.contains(this._cssClasses.modalCloseBtn)
       ) {
         this.close()
       }
@@ -63,17 +62,7 @@ export default class Modal {
       `.${this._cssClasses.modalContent}`
     )
 
-    modalContent.innerHTML = ''
-
-    loadImage(this._modalData.urls.regular).then(() => {
-      const img = new Image()
-
-      img.alt = this._modalData.alt_description || ''
-      img.className = 'modal__content-image'
-      img.src = this._modalData.urls.regular
-
-      modalContent.appendChild(img)
-    })
+    modalContent.innerHTML = this._modalData
   }
 
   /**
