@@ -1,4 +1,15 @@
 /**
+ * Constructs a query string from an object.
+ * @param {Object} params
+ * @return {string}
+ * @private
+ */
+const _queryParams = (params) =>
+  Object.keys(params)
+    .map((k) => encodeURIComponent(k) + '=' + encodeURIComponent(params[k]))
+    .join('&')
+
+/**
  * Wrapper for fetch to accept query params as options.
  * @param {string} url
  * @param {Object} options
@@ -7,23 +18,13 @@
 export const request = (url, options = {}) => {
   if (options.queryParams) {
     url +=
-      (url.indexOf('?') === -1 ? '?' : '&') + queryParams(options.queryParams)
+      (url.indexOf('?') === -1 ? '?' : '&') + _queryParams(options.queryParams)
 
     delete options.queryParams
   }
 
   return fetch(url, options)
 }
-
-/**
- * Constructs a query string from an object.
- * @param {Object} params
- * @return {string}
- */
-const queryParams = (params) =>
-  Object.keys(params)
-    .map((k) => encodeURIComponent(k) + '=' + encodeURIComponent(params[k]))
-    .join('&')
 
 /**
  * Creates a new image in memory to detect when it's loaded.
