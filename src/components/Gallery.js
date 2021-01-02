@@ -25,7 +25,7 @@ export default class Gallery {
   }
 
   /**
-   * Creates the DOM elements to display the gallery.
+   * Creates the DOM element to display the gallery.
    * @private
    */
   _create() {
