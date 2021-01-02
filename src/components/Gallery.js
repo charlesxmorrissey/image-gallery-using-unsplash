@@ -8,7 +8,7 @@ const { ACCESS_KEY: accessKey } = process.env
 /** Class that creates a image gallery based on keyword. */
 export default class Gallery {
   /**
-   * @param {!string} name The gallery element selector.
+   * @param {!string} elem The gallery element selector.
    * @param {string} keyword The search term.
    * @constructor
    */
