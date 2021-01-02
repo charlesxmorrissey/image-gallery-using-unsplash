@@ -1,3 +1,5 @@
+import closeIcon from 'images/close.svg'
+
 /** Class that creates a modal overlay to provide a detailed view. */
 export default class Modal {
   /**
@@ -5,10 +7,8 @@ export default class Modal {
    */
   constructor() {
     this._body = document.body
-    this._overlay = document.querySelector('.overlay')
-    this._modal = document.querySelector('.modal')
 
-    this._bindEvents()
+    this._create()
   }
 
   /**
@@ -25,6 +25,32 @@ export default class Modal {
       overlay: 'overlay',
       overlayOpen: 'overlay--is-open',
     }
+  }
+
+  /**
+   * Creates the DOM elements to display the overlay and modal.
+   * @private
+   */
+  _create() {
+    this._overlay = document.createElement('div')
+    this._overlay.classList.add(this._cssClasses.overlay)
+
+    this._modal = document.createElement('div')
+    this._modal.classList.add(this._cssClasses.modal)
+
+    this._modalBtn = document.createElement('button')
+    this._modalBtn.classList.add(this._cssClasses.modalCloseBtn)
+    this._modalBtn.innerHTML = closeIcon
+
+    this._modalContent = document.createElement('div')
+    this._modalContent.classList.add(this._cssClasses.modalContent)
+
+    this._body.append(this._overlay)
+    this._body.append(this._modal)
+    this._modal.append(this._modalBtn)
+    this._modal.append(this._modalContent)
+
+    this._bindEvents()
   }
 
   /**
@@ -58,11 +84,7 @@ export default class Modal {
    * @private
    */
   _render() {
-    const modalContent = document.querySelector(
-      `.${this._cssClasses.modalContent}`
-    )
-
-    modalContent.innerHTML = this._modalData
+    this._modalContent.innerHTML = this._modalData
   }
 
   /**
