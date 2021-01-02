@@ -2,22 +2,37 @@
 export default class Pagination {
   /**
    * @param {number} currentPage
-   * @param {number} totalPages
-   * @param {number} perPage
+   * @param {HTMLElement} elem
    * @param {Function} onPageChange
+   * @param {number} perPage
+   * @param {number} totalPages
    * @constructor
    */
-  constructor({ currentPage, totalPages, perPage, onPageChange }) {
+  constructor({ currentPage, elem, onPageChange, perPage, totalPages }) {
     this._currentPage = currentPage
+    this._elem = elem
     this._totalPages = totalPages > 50 ? 50 : totalPages
     this._perPage = perPage
     this._onPageChange = onPageChange
     this._numPages = Math.ceil(this._totalPages / this._perPage)
 
-    // Don't render the page navigation if there aren't enough results.
+    // Don't create the page navigation if there aren't enough results.
     if (this._numPages > 1) {
-      this._render()
+      this._create()
     }
+  }
+
+  /**
+   * Creates the DOM element to display the gallery pagination.
+   * @private
+   */
+  _create() {
+    this._pagination = document.createElement('footer')
+    this._pagination.classList.add('pagination')
+
+    this._elem.append(this._pagination)
+
+    this._render()
   }
 
   /**
@@ -40,11 +55,10 @@ export default class Pagination {
    * @private
    */
   _render() {
-    const paginationElem = document.querySelector('.pagination')
     const paginationNavElem = document.createElement('nav')
     const pageBtnFragment = document.createDocumentFragment()
 
-    paginationElem.append(paginationNavElem)
+    this._pagination.append(paginationNavElem)
     paginationNavElem.className = 'pagination-nav'
 
     for (let i = 1; i < this._numPages + 1; i++) {

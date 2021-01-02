@@ -8,16 +8,55 @@ const { ACCESS_KEY: accessKey } = process.env
 /** Class that creates a image gallery based on keyword. */
 export default class Gallery {
   /**
+   * @param {!string} name The gallery element selector.
    * @param {string} keyword The search term.
    * @constructor
    */
-  constructor({ keyword }) {
+  constructor({ elem, keyword }) {
     this._apiUrl = 'https://api.unsplash.com/search/photos'
+    this._elem = document.querySelector(elem)
     this._keyword = keyword
     this._currentPage = 1
     this._perPage = 10
     this._imageData = []
     this._initLoad = true
+
+    this._create()
+  }
+
+  /**
+   * Creates the DOM elements to display the gallery.
+   * @private
+   */
+  _create() {
+    this._gallery = document.createElement('section')
+    this._gallery.classList.add('gallery')
+
+    this._elem.append(this._gallery)
+  }
+
+  /**
+   * Adds a click event to handle the display of a modal detail view.
+   * @private
+   */
+  _bindEvents() {
+    document.addEventListener('click', (e) => {
+      if (e.target.classList.contains('gallery-card')) {
+        const modalImg = this._getSelectedImage(e.target.dataset.id)[0]
+        const { alt_description, urls } = modalImg
+
+        loadImage(urls.regular).then(() => {
+          const imgTemplate = `
+            <img
+              class="modal__content-image"
+              src="${urls.regular}"
+              alt="${alt_description || ''}" />
+          `
+
+          this._modal.open(imgTemplate)
+        })
+      }
+    })
   }
 
   /**
@@ -51,30 +90,6 @@ export default class Gallery {
   }
 
   /**
-   * Adds a click event to handle the display of a modal detail view.
-   * @private
-   */
-  _bindEvents() {
-    document.addEventListener('click', (e) => {
-      if (e.target.classList.contains('gallery-card')) {
-        const modalImg = this._getSelectedImage(e.target.dataset.id)[0]
-        const { alt_description, urls } = modalImg
-
-        loadImage(urls.regular).then(() => {
-          const imgTemplate = `
-            <img
-              class="modal__content-image"
-              src="${urls.regular}"
-              alt="${alt_description || ''}" />
-          `
-
-          this._modal.open(imgTemplate)
-        })
-      }
-    })
-  }
-
-  /**
    * Filters the selected image to display in the modal.
    * @param {string} id
    * @return {Object}
@@ -89,10 +104,9 @@ export default class Gallery {
    * @private
    */
   _render() {
-    const galleryElem = document.querySelector('.gallery')
     const cardFragment = document.createDocumentFragment()
 
-    galleryElem.innerHTML = ''
+    this._gallery.innerHTML = ''
 
     this._imageData.forEach(({ alt_description, id, urls }, index) => {
       const card = document.createElement('div')
@@ -113,7 +127,7 @@ export default class Gallery {
       cardFragment.appendChild(card)
     })
 
-    galleryElem.appendChild(cardFragment)
+    this._gallery.appendChild(cardFragment)
 
     // Initializes the pagination and modal component instances.
     // Adds event listeners to images.
@@ -122,9 +136,10 @@ export default class Gallery {
       this._modal = new Modal()
       this.pagination = new Pagination({
         currentPage: this._currentPage,
-        totalPages: this._total,
-        perPage: this._perPage,
+        elem: this._elem,
         onPageChange: this._fetchImages.bind(this),
+        perPage: this._perPage,
+        totalPages: this._total,
       })
       this._bindEvents()
     }
