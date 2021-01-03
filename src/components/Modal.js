@@ -32,6 +32,8 @@ export default class Modal {
    * @private
    */
   _create() {
+    const modalFragment = document.createDocumentFragment()
+
     this._overlay = document.createElement('div')
     this._overlay.classList.add(this._cssClasses.overlay)
 
@@ -45,10 +47,11 @@ export default class Modal {
     this._modalContent = document.createElement('div')
     this._modalContent.classList.add(this._cssClasses.modalContent)
 
-    this._body.append(this._overlay)
-    this._body.append(this._modal)
-    this._modal.append(this._modalBtn)
-    this._modal.append(this._modalContent)
+    this._modal.append(this._modalBtn, this._modalContent)
+
+    modalFragment.append(this._overlay, this._modal)
+
+    this._body.appendChild(modalFragment)
 
     this._bindEvents()
   }
