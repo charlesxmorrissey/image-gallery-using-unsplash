@@ -137,6 +137,7 @@ export default class Gallery {
       this.pagination = new Pagination({
         currentPage: this._currentPage,
         elem: this._elem,
+        limit: 50,
         onPageChange: this._fetchImages.bind(this),
         perPage: this._perPage,
         totalPages: this._total,

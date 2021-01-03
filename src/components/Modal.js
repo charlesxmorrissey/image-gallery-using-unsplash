@@ -1,6 +1,6 @@
 import closeIcon from 'images/close.svg'
 
-/** Class that creates a modal overlay to provide a detailed view. */
+/** Class that creates a modal overlay to provide a detailed image view. */
 export default class Modal {
   /**
    * @constructor

@@ -3,15 +3,16 @@ export default class Pagination {
   /**
    * @param {number} currentPage
    * @param {HTMLElement} elem
+   * @param {number} limit
    * @param {Function} onPageChange
    * @param {number} perPage
    * @param {number} totalPages
    * @constructor
    */
-  constructor({ currentPage, elem, onPageChange, perPage, totalPages }) {
+  constructor({ currentPage, elem, limit, onPageChange, perPage, totalPages }) {
     this._currentPage = currentPage
     this._elem = elem
-    this._totalPages = totalPages > 50 ? 50 : totalPages
+    this._totalPages = totalPages > limit ? limit : totalPages
     this._perPage = perPage
     this._onPageChange = onPageChange
     this._numPages = Math.ceil(this._totalPages / this._perPage)
