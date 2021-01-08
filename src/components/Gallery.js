@@ -2,6 +2,7 @@ import { loadImage, request } from 'utils'
 
 import Modal from './Modal'
 import Pagination from './Pagination'
+import Search from './Search'
 
 const { ACCESS_KEY: accessKey } = process.env
 
@@ -64,16 +65,16 @@ export default class Gallery {
    * @param {number} page
    * @private
    */
-  _fetchImages(page = this._currentPage) {
+  _fetchImages(page = this._currentPage, query = this._keyword) {
     request(this._apiUrl, {
       headers: {
         authorization: `Client-ID ${accessKey}`,
       },
       queryParams: {
-        query: this._keyword,
-        per_page: this._perPage,
         orientation: 'landscape',
         page,
+        per_page: this._perPage,
+        query,
       },
     })
       .then((response) => response.json())
@@ -141,6 +142,11 @@ export default class Gallery {
         onPageChange: this._fetchImages.bind(this),
         perPage: this._perPage,
         totalPages: this._total,
+      })
+      this.search = new Search({
+        elem: this._elem,
+        keyword: this._keyword,
+        onKeywordChange: this._fetchImages.bind(this),
       })
       this._bindEvents()
     }
