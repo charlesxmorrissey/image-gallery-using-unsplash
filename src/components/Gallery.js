@@ -16,6 +16,7 @@ export default class Gallery {
   constructor({ elem, keyword }) {
     this._apiUrl = 'https://api.unsplash.com/search/photos'
     this._elem = document.querySelector(elem)
+    this._defaultKeyword = keyword
     this._keyword = keyword
     this._currentPage = 1
     this._perPage = 10
@@ -81,6 +82,7 @@ export default class Gallery {
       .then((json) => {
         this._imageData = json.results
         this._total = json.total
+        this._keyword = query
 
         this._render()
       })

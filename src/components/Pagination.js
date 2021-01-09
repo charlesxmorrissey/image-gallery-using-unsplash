@@ -12,7 +12,8 @@ export default class Pagination {
   constructor({ currentPage, elem, limit, onPageChange, perPage, totalPages }) {
     this._currentPage = currentPage
     this._elem = elem
-    this._totalPages = totalPages > limit ? limit : totalPages
+    this._limit = limit
+    this._totalPages = totalPages > this._limit ? this._limit : totalPages
     this._perPage = perPage
     this._onPageChange = onPageChange
     this._numPages = Math.ceil(this._totalPages / this._perPage)
@@ -58,6 +59,8 @@ export default class Pagination {
   _render() {
     const paginationNavElem = document.createElement('nav')
     const pageBtnFragment = document.createDocumentFragment()
+
+    this._pagination.innerHTML = ''
 
     this._pagination.append(paginationNavElem)
     paginationNavElem.className = 'pagination-nav'
