@@ -84,6 +84,11 @@ export default class Gallery {
         this._total = json.total
         this._keyword = query
 
+        if (this._keyword !== this._defaultKeyword) {
+          this._defaultKeyword = this._keyword
+          this.pagination.update(this._total)
+        }
+
         this._render()
       })
       .catch((error) => {

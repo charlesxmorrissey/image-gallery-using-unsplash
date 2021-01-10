@@ -13,15 +13,33 @@ export default class Pagination {
     this._currentPage = currentPage
     this._elem = elem
     this._limit = limit
-    this._totalPages = totalPages > this._limit ? this._limit : totalPages
+    this._totalPages = this._getPageTotal(totalPages)
     this._perPage = perPage
     this._onPageChange = onPageChange
-    this._numPages = Math.ceil(this._totalPages / this._perPage)
+    this._numPages = this._getNumPages()
+    this._initLoad = true
 
     // Don't create the page navigation if there aren't enough results.
     if (this._numPages > 1) {
       this._create()
     }
+  }
+
+  /**
+   * Returns the page navigation total based on the results.
+   * @return {number}
+   */
+  _getNumPages() {
+    return Math.ceil(this._totalPages / this._perPage)
+  }
+
+  /**
+   * Returns the number of image results based on the current query.
+   * @param {number} total
+   * @return {number}
+   */
+  _getPageTotal(total) {
+    return total > this._limit ? this._limit : total
   }
 
   /**
@@ -76,7 +94,10 @@ export default class Pagination {
 
     paginationNavElem.appendChild(pageBtnFragment)
 
-    this._bindEvents()
+    if (this._initLoad) {
+      this._bindEvents()
+    }
+
     this._setSelectedPage()
   }
 
@@ -97,5 +118,18 @@ export default class Pagination {
         pageBtns[i].disabled = false
       }
     }
+  }
+
+  /**
+   * Updates the total pages based on new queries and triggers a re-render.
+   * @param {number} totalPages
+   */
+  update(totalPages) {
+    this._currentPage = 1
+    this._totalPages = this._getPageTotal(totalPages)
+    this._numPages = this._getNumPages()
+    this._initLoad = false
+
+    this._render()
   }
 }
