@@ -1,4 +1,3 @@
-import closeIcon from 'images/close.svg'
 import searchIcon from 'images/search.svg'
 
 /** Class that creates a keyword search. */
@@ -32,24 +31,15 @@ export default class Search {
     this._searchFormInput = document.createElement('input')
     this._searchFormInput.classList.add('search__input')
     this._searchFormInput.placeholder = 'Search'
-    this._searchFormInput.type = 'text'
+    this._searchFormInput.type = 'search'
     this._searchFormInput.value = this._keyword
-
-    this._searchFormResetBtn = document.createElement('button')
-    this._searchFormResetBtn.classList.add('search__reset-btn')
-    this._searchFormResetBtn.type = 'reset'
-    this._searchFormResetBtn.innerHTML = closeIcon
 
     this._searchFormBtn = document.createElement('button')
     this._searchFormBtn.classList.add('search__btn')
     this._searchFormBtn.type = 'submit'
     this._searchFormBtn.innerHTML = searchIcon
 
-    this._searchForm.append(
-      this._searchFormInput,
-      this._searchFormResetBtn,
-      this._searchFormBtn
-    )
+    this._searchForm.append(this._searchFormInput, this._searchFormBtn)
 
     searchFragment.append(this._searchForm)
 

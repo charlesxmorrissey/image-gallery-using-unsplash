@@ -21,9 +21,26 @@
   &:focus {
     outline: none;
   }
+
+  &::-webkit-search-cancel-button {
+    appearance: none;
+    background: url(https://pro.fontawesome.com/releases/v5.10.0/svgs/solid/times-circle.svg)
+      no-repeat 50% 50%;
+    background-size: contain;
+    border-radius: 50em;
+    cursor: pointer;
+    height: 1em;
+    opacity: 0;
+    pointer-events: none;
+    width: 1em;
+  }
+
+  &:focus::-webkit-search-cancel-button {
+    opacity: 0.3;
+    pointer-events: all;
+  }
 }
 
-.search__reset-btn,
 .search__btn {
   align-items: center;
   background: none;
